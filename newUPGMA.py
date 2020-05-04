@@ -52,16 +52,17 @@ def theAlgorithm(distanceTable, labels, xCoordinate, yCoordinate, minNumber):
     firstElement = labels[xCoordinate]
     secondElement = labels[yCoordinate]
 
-    print(labels)
+    firstElementTotal = labelsTotal[xCoordinate]
+    secondElementTotal = labelsTotal[yCoordinate]
 
     newstrX = "0"
     newstrY = "0"
-    if firstElement.strip()[-1] == ")":
-        newString = firstElement.split(":")
+    if firstElementTotal.strip()[-1] == ")":
+        newString = firstElementTotal.split(":")
         newstrX = newString[len(newString) - 1].replace(")", "")
     
-    if secondElement.strip()[-1] == ")":
-        newString = secondElement.split(":")
+    if secondElementTotal.strip()[-1] == ")":
+        newString = secondElementTotal.split(":")
         newstrY = newString[len(newString) - 1].replace(")", "")
     
 
@@ -69,10 +70,18 @@ def theAlgorithm(distanceTable, labels, xCoordinate, yCoordinate, minNumber):
     firstElement += ":" + str(minNumber/2-float(newstrX))
     secondElement += ":" + str(minNumber/2-float(newstrY))
 
+    firstElementTotal += ":" + str(minNumber/2)
+    secondElementTotal += ":" + str(minNumber/2)
+
     
     del(labels[xCoordinate])
     del(labels[yCoordinate])
     labels.append("(" + firstElement + "," + secondElement + ")")
+
+
+    del(labelsTotal[xCoordinate])
+    del(labelsTotal[yCoordinate])
+    labelsTotal.append("(" + firstElementTotal + "," + secondElementTotal + ")")
 
     return newDistanceTable
 
@@ -97,14 +106,34 @@ def upgma(table, labels):
 
 
 
-labels = makeLabels("A", "E")   #A through G
+# labels = makeLabels("A", "E")   #A through G
+# distanceMatrix = [
+#     [],                         #A
+#     [20],                       #B
+#     [60, 50],                   #C
+#     [100, 90, 40],              #D
+#     [90, 80, 50, 30]            #E
+#     ]
+
+
+
+labels = makeLabels("A", "H")   #A through G
+
+labelsTotal = copy.deepcopy(labels)
+
+
 distanceMatrix = [
     [],                         #A
-    [20],                       #B
-    [60, 50],                   #C
-    [100, 90, 40],              #D
-    [90, 80, 50, 30]            #E
+    [32],                       #B
+    [48, 26],                   #C
+    [51, 34, 42],              #D
+    [50, 29, 44, 44],           #E
+    [48, 33, 44, 38, 24],            #F
+    [98, 84, 92, 86, 89, 90],            #G
+    [148, 136, 152, 142, 142, 142, 148]            #H
     ]
+
+
 
 
 
